@@ -13,6 +13,7 @@ import VerifyEmail from "./pages/VerifyEmail";
 import ForgotPassword from "./pages/ForgotPassword";
 import UpdatePassword from "./pages/UpdatePassword";
 import ResetComplte from "./pages/ResetComplte";
+import About from "./pages/About";
 
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
 
         {/* Homepage -> common page everyone can visit */}
         <Route path="/" element={<Home />} />
+
+        <Route path="/about" element={<About />} />
 
         {/* Signup ka page -> it is not common for every user, only unknown user */}
         <Route
