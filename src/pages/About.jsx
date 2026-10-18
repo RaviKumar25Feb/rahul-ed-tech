@@ -8,10 +8,10 @@ import FoundingImage from "../assets/Images/FoundingStory.png"
 import StatsComponent from '../components/core/AboutPage/StatsComponent'
 import LearningGrid from '../components/core/AboutPage/LearningGrid'
 import ContactForm from '../components/core/AboutPage/ContactForm'
-
+import Footer from '../components/common/Footer'
 function About() {
   return (
-    <div className='text-white mx-auto w-11/12'>
+    <div className='text-white mx-auto'>
     
         {/* Section 1 */}
         <section >
@@ -83,6 +83,18 @@ function About() {
         <section>
             <ContactForm />
         </section>
+
+        {/* Section 7 */}
+        <section>
+            <div>
+                <h1>Reviews from other learners</h1>
+                {/* <ReviewSlider /> */}
+            </div>
+        </section>
+
+
+        {/*Footer */}
+      <Footer />
 
     </div>
   )

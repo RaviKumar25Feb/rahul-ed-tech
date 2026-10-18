@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import CountryCode from "../../../data/countrycode.json"
 
 function ContactUsForm() {
   const [loading, setLoading] = useState(false);
@@ -33,6 +34,7 @@ function ContactUsForm() {
             firstname: "",
             lastname: "",
             message: "",
+            phonenumber: ""
         })
     }
   }, [reset, isSubmitSuccessful])
@@ -84,6 +86,51 @@ function ContactUsForm() {
         </div>
 
         {/* phone -> panding */}
+        <div className="flex flex-col gap-x-10">
+          <label htmlFor="phonenumber">Phone Number</label>
+          
+          <div className="flex gap-x-5">
+
+            {/* dropdown */}
+
+            <select 
+              name="dropdown"
+              id="dropdown"
+              className="text-black w-[80px]"
+              {...register("countrycode", {required: true})}
+            >
+              {
+                CountryCode.map((element, index) => {
+                  return (
+                    <option key={index} value={element.code}>
+                      {element.code} - {element.country}
+                    </option>
+                  )
+                })
+              }
+            </select>
+
+            {/* input */}
+
+            <input
+              type="number"
+              name="phonenumber"
+              id="phonenumber"
+              className="text-black"
+              placeholder="1234 6789"
+              {...register("phonenumber", {
+                required: {value: true, message: "Please enter phone number"},
+                maxLength: {value: 10, message: "Invalid Phone number"},
+                minLength: {value: 8, message: "Invalid Phone number"},
+              }
+              )}
+            />
+          </div>
+
+          {
+            errors.phonenumber && <span>{errors.phonenumber.message}</span>
+          }
+        </div>
 
         {/* message */}
         <div className="flex flex-col">
