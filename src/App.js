@@ -15,6 +15,7 @@ import UpdatePassword from "./pages/UpdatePassword";
 import ResetComplte from "./pages/ResetComplte";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Error from "./pages/Error";
 
 
 function App() {
@@ -90,6 +91,8 @@ function App() {
             </OpenRoute>
           }
         />
+
+        <Route path="*" element={<Error />} />
 
       </Routes>
     </div>
