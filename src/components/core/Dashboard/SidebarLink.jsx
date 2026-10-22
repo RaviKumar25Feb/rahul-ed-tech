@@ -1,12 +1,18 @@
 import React from 'react'
 import { matchPath, useLocation } from 'react-router-dom';
-import * as Icon from "react-icons/vsc"
+import * as Icons from "react-icons/vsc"
 import { NavLink } from 'react-router-dom';
 
 function SidebarLink({iconName, link}) {
 
 
     const location = useLocation();
+    const Icon = Icons[iconName];
+    if (!Icon) {
+  console.error("Icon not found:", iconName);
+  return null;
+}
+
     const matchRoute = (route) => {
         return matchPath({path: route}, location.pathname)
     }
@@ -23,7 +29,7 @@ function SidebarLink({iconName, link}) {
     <div className='flex items-center gap-x-2'>
 
         <Icon className="text-lg" />
-        <span>{link.name}</span>
+        <span className='text-white'>{link.name}</span>
 
     </div>
 

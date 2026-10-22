@@ -12,7 +12,7 @@ function IconBtn({
   return (
     <button
         disabled={disabled}
-        onclick={onclick}
+        onClick={onclick}
         type={type}
     >
 

@@ -16,6 +16,9 @@ import ResetComplte from "./pages/ResetComplte";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Error from "./pages/Error";
+import Dashboard from "./pages/Dashboard";
+import MyProfile from "./components/core/Dashboard/MyProfile";
+import PrivateRoute from "./components/core/Auth/PrivateRoute";
 
 
 function App() {
@@ -91,6 +94,17 @@ function App() {
             </OpenRoute>
           }
         />
+
+        <Route 
+          element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          }
+        >
+          <Route path="/dashboard/my-profile"  element={<MyProfile/>} />
+          {/* <Route path="/dashboard/settings"  element={<MyProfile/>} /> */}
+        </Route>
 
         <Route path="*" element={<Error />} />
 
