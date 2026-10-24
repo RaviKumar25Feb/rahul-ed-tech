@@ -1,9 +1,9 @@
 import React from 'react'
 
-function Error() {
+const Error = () => {
   return (
-    <div className='text-white text-xl font-semibold flex justify-center'>
-        Not Found - 404
+    <div className='flex justify-center items-center text-3xl text-white'>
+      Error - 404 Not found
     </div>
   )
 }

@@ -1,27 +1,21 @@
 import React from 'react'
-import IconBtn from '../../../common/IconBtn';
 import { useSelector } from 'react-redux'
+import IconBtn from '../../../common/IconBtn';
 
-function RenderTotalAmount() {
+const RenderTotalAmount = () => {
 
-    const {total} = useSelector((state) => state.cart);
+    const {total, cart} = useSelector((state) => state.cart);
 
-    const handleBuyCourse = async () => {
-        try{
-            const courses = cart.map((course) => course._id);
-            console.log("Bought these courses: ", courses);
-        }
-        catch(error){
 
-        }
+    const handleBuyCourse = () => {
+        const courses = cart.map((course) => course._id);
+        console.log("Bought these course:", courses);
+        //TODO: API integrate -> payment gateway tak leke jaegi
     }
-
-
   return (
     <div>
 
-        <p>Total: </p>
-
+        <p>Total:</p>
         <p>Rs {total}</p>
 
         <IconBtn 
@@ -29,7 +23,7 @@ function RenderTotalAmount() {
             onclick={handleBuyCourse}
             customClasses={"w-full justify-center"}
         />
-    
+        
     </div>
   )
 }

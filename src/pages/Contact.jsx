@@ -1,36 +1,31 @@
-import React from 'react'
-import ContactUsForm from '../components/core/ContactPage/ContactUsForm'
-import Footer from '../components/common/Footer'
-function Contact() {
+import React from "react"
+
+import Footer from "../components/common/Footer"
+import ContactDetails from "../components/ContactPage/ContactDetails"
+import ContactForm from "../components/ContactPage/ContactForm"
+
+const Contact = () => {
   return (
     <div>
-        <div>
-
-            {/* Left wala card */}
-            <div>
-                {/* Panding */}
-            </div>
-
-            {/* right side form */}
-            <div>
-                <h1>Got a Idea? We’ve got the skills. Let’s team up</h1>
-
-                <p>Tall us more about yourself and what you’re got in mind.</p>
-
-                <ContactUsForm />
-            </div>
-
-
-            <div>
-                <h1>Reviews from other leaners</h1>
-
-                {/* <ReviewSlider /> */}
-            </div>
-
-            {/*Footer */}
-            <Footer />
-
+      <div className="mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-white lg:flex-row">
+        {/* Contact Details */}
+        <div className="lg:w-[40%]">
+          <ContactDetails />
         </div>
+
+        {/* Contact Form */}
+        <div className="lg:w-[60%]">
+          <ContactForm />
+        </div>
+      </div>
+      <div className="relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white">
+        {/* Reviws from Other Learner */}
+        <h1 className="text-center text-4xl font-semibold mt-8">
+          Reviews from other learners
+        </h1>
+        {/* <ReviewSlider /> */}
+      </div>
+      <Footer />
     </div>
   )
 }
