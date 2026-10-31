@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import IconBtn from "../../../../common/IconBtn"
 
 
@@ -9,6 +9,7 @@ function CourseInformationForm() {
     const [loading, setLoading] = useState(false);
     const [courseCategories, setCourseCategories] = useState([]);
     const dispatch = useDispatch()
+    const {course, editCourse} = useSelector((state) => state.course);
 
     useEffect( () => {
         const getCategories = async() => {
@@ -18,6 +19,17 @@ function CourseInformationForm() {
                 setCourseCategories(categories);
             }
             setLoading(false);
+        }
+
+        if(editCourse) {
+            setValue("courseTitle", course.courseName);
+            setValue("courseShortDesc", course.courseDescription);
+            setValue("coursePrice", course.price);
+            setValue("courseTags", course.tag);
+            setValue("courseBenefits", course.whatYouWillLearn);
+            setValue("courseCategory", course.category);
+            setValue("courseRequirements", course.instructions);
+            setValue("courseImage", course.thumbnail);
         }
 
         getCategories();
@@ -31,10 +43,96 @@ function CourseInformationForm() {
         formState: {errors}
     } = useForm();
 
+    const isFormUpdated = () => {
+        const currentValues = getValues();
+        if(
+            currentValues.courseTitle !== course.courseName ||
+            currentValues.courseShortDesc !== course.courseDescription ||
+            currentValues.coursePrice !== course.price ||
+            // currentValues.courseTags.toString() !== course.tag.toString() ||
+            currentValues.courseBenefits !== course.whatYouWillLearn ||
+            currentValues.courseCategory._id !== course.category._id ||
+            // currentValues.courseImage !== course.thumbnail ||
+            currentValues.courseRequirements.toString() !== course.instructions.toString()
+        ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
     const onSubmit = async(data) => {
         try{
+            if(editCourse) {
+                if(isFormUpdated()) {
+                    const currentValues = getValues();
+                    const formData = new FormData();
+
+                    formData.append("courseId", course._id);
+                    if(currentValues.courseTitle !== course.courseName){
+                        formData.append("courseName", data.courseTitle)
+                    }
+
+                    if(currentValues.courseTitle !== course.courseName){
+                        formData.append("courseName", data.courseTitle)
+                    }
+
+                    if(currentValues.courseShortDesc !== course.courseDescription){
+                        formData.append("courseDescription", data.courseShortDesc)
+                    }
+
+
+                    if(currentValues.coursePrice !== course.price){
+                        formData.append("price", data.coursePrice)
+                    }
+
+                    if(currentValues.courseBenefits !== course.whatYouWillLearn){
+                        formData.append("whatYouWillLearn", data.courseBenefits)
+                    }
+
+                    if(currentValues.courseCategory._id !== course.category._id){
+                        formData.append("category", data.courseCategory)
+                    }
+
+                    if(currentValues.courseRequirements.toString() !== course.instructions.toString()){
+                        formData.append("instructions", JSON.stringify(data.courseRequirements))
+                    }
+
+                    setLoading(true)
+                    const result = await editCourseDetails(formData, token)
+                    setLoading(false)
+                    if(result) {
+                        dispatch(setStep(2))
+                        dispatch(setCourse(result));
+                    }
+                }else{
+                    toast.error("NO Changes made")
+                }
+                return;
+            }
+
+            // create course kro fir
+            const formData = new FormData();
+            formData.append("courseName", data.courseTitle)
+            formData.append("courseDescription", data.courseShortDesc)
+            formData.append("price", data.coursePrice)
+            formData.append("whatYouWillLearn", data.courseBenefits)
+            formData.append("category", data.courseCategory)
+            formData.append("instructions", JSON.stringify(data.courseRequirements))
+            formData.append("status", COURSE_STATUS_DRAFT)
+
+            //call krege api for creating new course
+            setLoading(true);
+            const result = await addCourseDetails(formData, token);
+            if(result) {
+                setStep(2);
+                dispatch(setCourse(result));
+            }
+            setLoading(false)
 
         }catch(error) {
+            console.log(error.message);
 
         }
     }
